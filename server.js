@@ -5,5 +5,5 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 app.listen(port, () => {
-  console.log(`Example server listening at http://localhost:${port}`);
+  console.log(`Example server updated listening at http://localhost:${port}`);
 });
