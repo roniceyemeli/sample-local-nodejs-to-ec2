@@ -37,5 +37,5 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /var/www/your_project_directory
+            cd /var/www/sample-local-nodejs-to-ec2
             pm2 reload ecosystem.config.js --env production
