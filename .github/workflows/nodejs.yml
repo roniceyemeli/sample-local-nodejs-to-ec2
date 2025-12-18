@@ -72,14 +72,10 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: |
-            ecosystem.config.js
-            package.json
-            package-lock.json
-            server.js
-            src
+          source: "./"
           target: /var/www/sample-local-nodejs-to-ec2
           rm: true
+          strip_components: 0
 
       # 4️⃣ Install deps & restart PM2 on the server
       - name: Install dependencies & restart PM2
