@@ -13,14 +13,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: Install dependencies
-        run: npm install
-
       - name: Deploy to AWS EC2
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -29,8 +21,12 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: .
           target: /var/www/sample-local-nodejs-to-ec2
+          exclude: |
+            node_modules
+            .git
+            .github
 
-      - name: Restart PM2 application
+      - name: Install dependencies & restart PM2
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.REMOTE_HOST }}
@@ -38,4 +34,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/sample-local-nodejs-to-ec2
+            npm install --production
             pm2 reload ecosystem.config.js --env production
